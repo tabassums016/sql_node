@@ -48,7 +48,7 @@ client.on('message', (topic, message) => {
     console.log('DATA: %s', message)
     mqtt_json=JSON.parse(message)
     console.log('RESPONSE: %s %d %s', mqtt_json.device, mqtt_json.ts, mqtt_json.data[0])
-    let update= `INSERT INTO mqttdata(Device, TS, DATA) VALUES( "${mqtt_json.device}", ${mqtt_json.ts}, "${mqtt_json.data[0]}")`;
+    let update= `INSERT IGNORE INTO mqttdata(Device, TS, DATA) VALUES( "${mqtt_json.device}", ${mqtt_json.ts}, "${mqtt_json.data[0]}")`;
    console.log(update);
 db.query(update, (err,result)=>{
     if(err)throw err;
